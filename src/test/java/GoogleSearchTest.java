@@ -1,9 +1,10 @@
-import org.junit.After;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
@@ -14,7 +15,7 @@ public class GoogleSearchTest {
     WebDriver driver;
 
     @BeforeSuite
-    public void setUp(){
+    public void setUp() throws Exception{
         System.setProperty("webdriver.gecko.driver" , "F:\\JavaWorkSpace\\SeleniumKIT\\src\\test\\resources\\geckodriver.exe");
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(30L, TimeUnit.SECONDS);
@@ -33,8 +34,8 @@ public class GoogleSearchTest {
 
     }
 
-    @After
-    public void down(){
+    @AfterClass
+    public void tearDown() throws Exception{
         driver.quit();
     }
 }
