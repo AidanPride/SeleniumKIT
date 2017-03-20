@@ -1,4 +1,5 @@
-import org.testng.annotations.AfterClass;
+
+import org.junit.After;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -34,7 +35,7 @@ public class CheckCurrency {
 
     }
 
-    @AfterClass
+    @After
     public void tearDown() throws Exception{
         driver.quit();
     }

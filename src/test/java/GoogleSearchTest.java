@@ -1,10 +1,10 @@
 
+import org.junit.After;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
@@ -34,7 +34,7 @@ public class GoogleSearchTest {
 
     }
 
-    @AfterClass
+    @After
     public void tearDown() throws Exception{
         driver.quit();
     }
