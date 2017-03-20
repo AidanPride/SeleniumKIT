@@ -34,8 +34,8 @@ public class CheckCurrency {
 
     }
 
-//    @AfterClass
-//    public void tearDown() throws Exception{
-//        driver.quit();
-//    }
+    @AfterClass
+    public void tearDown() throws Exception{
+        driver.quit();
+    }
 }
