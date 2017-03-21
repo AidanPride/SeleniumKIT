@@ -2,17 +2,17 @@
 import org.junit.After;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by User on 20.03.2017.
- */
 public class CheckCurrency {
     WebDriver driver;
 
@@ -27,12 +27,26 @@ public class CheckCurrency {
 
     @Test
     public void checkSumm(){
-        String expectedResult = "134 546.32";
+        List<String> expectedResult = new ArrayList<String>();
+        expectedResult.add("134 439.33");
+        expectedResult.add("4 650.30");
+        expectedResult.add("286 425.42");
+
+        List<String> actualResult = new ArrayList<String>();
+
         driver.findElement(By.id("currency_amount")).sendKeys("5000");
         new Select(driver.findElement(By.xpath(".//*[@id='converter_bank']"))).selectByValue("1");
-        String actualResults = driver.findElement(By.id("UAH")).findElement(By.xpath(".//*[@id='currency_exchange']")).getAttribute("value");
-        Assert.assertEquals(actualResults, expectedResult);
+        List<WebElement> webElements = driver.findElements(By.xpath(".//*[@id='currency_exchange']"));
+        webElements.remove(1);
 
+        for (WebElement webElement: webElements) {
+            actualResult.add(webElement.getAttribute("value"));
+        }
+
+
+        for (int i=0; i < expectedResult.size(); i++) {
+            Assert.assertEquals(actualResult.get(i), expectedResult.get(i));
+        }
     }
 
     @After
