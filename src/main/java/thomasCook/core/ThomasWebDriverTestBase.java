@@ -15,7 +15,7 @@ public class ThomasWebDriverTestBase {
     @BeforeClass
     public void setUp() throws Exception{
         System.setProperty("webdriver.gecko.driver",
-                WebDriverTestBase.class.getClassLoader().getResource("geckodriver.exe").getPath());
+                ThomasWebDriverTestBase.class.getClassLoader().getResource("geckodriver.exe").getPath());
         driver = new FirefoxDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(30 , TimeUnit.SECONDS);

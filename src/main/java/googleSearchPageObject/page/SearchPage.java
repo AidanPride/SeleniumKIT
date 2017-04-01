@@ -2,22 +2,29 @@ package googleSearchPageObject.page;
 
 import googleSearchPageObject.core.WebDriverTestBase;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class SearchPage extends WebDriverTestBase{
+public class SearchPage extends AbstractPage{
 
-    @Test
-    public void searchTest(){
-        driver.get("https://www.google.com.ua");
+    @FindBy(how = How.ID , using = "gs_htif0")
+    private WebElement searchField;
 
-        WebElement searchElement = driver.findElement(By.id("gs_htif0"));
-        searchElement.sendKeys("Selenium");
-        searchElement.submit();
-
-        WebElement findElement = driver.findElement(By.xpath(".//*[@id='rso']/div[2]/div/div[1]/div/h3/a"));
-        Assert.assertEquals(findElement.getText().contains("Selenium") , true);
-
+    public SearchPage(WebDriver driver) {
+        super(driver);
+        PageFactory.initElements(driver , this);
     }
+
+    public ResultPage searchText(String text){
+        searchField.sendKeys(text);
+        searchField.submit();
+        return new ResultPage(driver);
+    }
+
+
 }

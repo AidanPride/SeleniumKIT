@@ -12,7 +12,8 @@ public abstract class WebDriverTestBase {
 
     @BeforeClass
     public void setUp() throws Exception{
-        System.setProperty("webdriver.gecko.driver" , "F:\\JavaWorkSpace\\SeleniumKIT\\src\\test\\resources\\geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver" ,
+                WebDriverTestBase.class.getClassLoader().getResource("geckodriver.exe").getPath());
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(30L, TimeUnit.SECONDS);
         driver.manage().window().maximize();

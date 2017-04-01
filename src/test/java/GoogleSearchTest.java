@@ -1,4 +1,8 @@
 
+import googleSearchPageObject.core.WebDriverTestBase;
+import googleSearchPageObject.page.ResultPage;
+import googleSearchPageObject.page.SearchPage;
+import googleSearchPageObject.utils.DataProviderGoogle;
 import org.junit.After;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,31 +15,18 @@ import org.testng.annotations.Test;
 import java.util.concurrent.TimeUnit;
 
 
-public class GoogleSearchTest {
-    WebDriver driver;
+public class GoogleSearchTest extends WebDriverTestBase{
 
-    @BeforeSuite
-    public void setUp() throws Exception{
-        System.setProperty("webdriver.gecko.driver" , "F:\\JavaWorkSpace\\SeleniumKIT\\src\\test\\resources\\geckodriver.exe");
-        driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(30L, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-        driver.get("https://www.google.com.ua");
-    }
 
-    @Test
-    public void searchTest(){
-        WebElement searchElement = driver.findElement(By.id("gs_htif0"));
-        searchElement.sendKeys("Selenium");
-        searchElement.submit();
-
-        WebElement findElement = driver.findElement(By.xpath(".//*[@id='rso']/div[2]/div/div[1]/div/h3/a"));
-        Assert.assertEquals(findElement.getText().contains("Selenium") , true);
+    @Test(dataProviderClass = DataProviderGoogle.class,
+          dataProvider = "dataProvider")
+    public void searchTest(String url , String text){
+        SearchPage searchPage = new SearchPage(driver);
+        searchPage.open(url);
+        ResultPage resultPage = searchPage.searchText(text);
+        Assert.assertTrue(resultPage.getFirstLink().getText().contains(text));
 
     }
 
-    @After
-    public void tearDown() throws Exception{
-        driver.quit();
-    }
+
 }
