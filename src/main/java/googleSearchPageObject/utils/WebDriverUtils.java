@@ -12,6 +12,7 @@ public class WebDriverUtils {
     }
 
     public void waitForExpextedCondition(ExpectedCondition expectedCondition){
+
         wait.until(expectedCondition);
     }
 }

@@ -9,7 +9,7 @@ public class DataProviderGoogle {
         String url = "https://www.google.com.ua";
         String text1 =  "Selenium";
 
-        String text2 = "Кракозябра - не баг, а личность";
+        String text2 = "TestNG";
 
         return new Object[][]{{url , text1} , {url , text2}};
     }

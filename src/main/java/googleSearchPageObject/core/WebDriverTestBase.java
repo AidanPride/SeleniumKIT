@@ -1,5 +1,6 @@
 package googleSearchPageObject.core;
 
+import org.junit.After;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
@@ -20,7 +21,7 @@ public abstract class WebDriverTestBase {
 
     }
 
-    @AfterClass
+    @After
     public void tearDown() throws Exception{
         driver.quit();
     }
