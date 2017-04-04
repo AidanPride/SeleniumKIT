@@ -1,20 +1,21 @@
 package thomasCook.pages;
 
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 
 public class ThomasCookMainPage extends ThomasCookAbstractPage{
-    @FindBy(how = How.CLASS_NAME, using = "FormField-text FormField-text--iconRight SearchbarForm-inputForm")
+    @FindBy(how = How.XPATH, using = ".//*[@id='SearchbarForm-originContainer']/div/div/div/tc-typeahead/div")
     private WebElement searchField;
 
-    @FindBy(how = How.ID , using = "SearchbarForm-goingTo")
+    @FindBy(how = How.XPATH ,
+            using = ".//*[@id='SearchbarForm-destinationContainer']/div/div/div/tc-typeahead/div")
     private WebElement destination;
 
     @FindBy(how = How.ID , using = "when")
@@ -42,8 +43,8 @@ public class ThomasCookMainPage extends ThomasCookAbstractPage{
     }
 
     public void setSearchField(String flyingFrom) {
-        WebDriverWait wait = new WebDriverWait(driver ,  30);
-        wait.until(ExpectedConditions.visibilityOf(searchField));
+        waitForElement(searchField);
+        searchField.click();
         searchField.sendKeys(flyingFrom);
         searchField.submit();
 
@@ -51,11 +52,12 @@ public class ThomasCookMainPage extends ThomasCookAbstractPage{
     }
 
     public void setDestination(String flyingTo) {
-        WebDriverWait wait = new WebDriverWait(driver ,  30);
-        wait.until(ExpectedConditions.visibilityOf(destination));
-        destination.click();
-        destination.sendKeys(flyingTo);
-        destination.submit();
+        waitForElement(destination);
+        if(destination.isDisplayed()) {
+            destination.click();
+            destination.sendKeys(flyingTo);
+            destination.submit();
+        }
     }
 
     public void setDate(WebElement date) {
@@ -63,11 +65,11 @@ public class ThomasCookMainPage extends ThomasCookAbstractPage{
     }
 
     public void setDuration(String nights) {
-        this.duration = duration;
         new Select(duration).selectByValue("string:" + nights);
     }
 
     public void setAdults(WebElement adults) {
+
         this.adults = adults;
     }
 
@@ -79,4 +81,6 @@ public class ThomasCookMainPage extends ThomasCookAbstractPage{
         searchButton.click();
         return new ThomasCookResultPage(driver);
     }
+
+
 }

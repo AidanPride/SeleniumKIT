@@ -1,4 +1,4 @@
-import org.openqa.selenium.By;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import thomasCook.core.ThomasWebDriverTestBase;
@@ -28,6 +28,21 @@ public class ThomasCookSearchTests extends ThomasWebDriverTestBase {
         thomasCookMainPage.open(url);
         thomasCookMainPage.setDuration(nights);
         ThomasCookResultPage thomasCookResultPage = thomasCookMainPage.clickSearchButton();
+        Assert.assertTrue(thomasCookResultPage.getDuration().contains(nights + " Nights" ));
+
+    }
+
+    @Test
+    public void searchWithParam(){
+        ThomasCookMainPage thomasCookMainPage= new ThomasCookMainPage(driver);
+        thomasCookMainPage.open(url);
+        thomasCookMainPage.setSearchField(flyingFrom);
+        thomasCookMainPage.setDestination(destionation);
+        thomasCookMainPage.setDuration(nights);
+        ThomasCookResultPage thomasCookResultPage = thomasCookMainPage.clickSearchButton();
+        Assert.assertTrue(thomasCookResultPage.getDuration().contains(flyingFrom ) &&
+                        thomasCookResultPage.getDuration().contains(destionation ) &&
+                thomasCookResultPage.getDuration().contains(nights + " Nights" ));
 
     }
 }

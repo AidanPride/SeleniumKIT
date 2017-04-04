@@ -18,8 +18,17 @@ public class ThomasCookResultPage extends ThomasCookAbstractPage {
 @FindBy(how = How.CLASS_NAME , using = "SrpHeader-title SrpHeader-title--seo")
 private WebElement filter;
 
-@FindBy(how = How.ID , using = "SearchbarForm-duration")
-private Select durations;
+@FindBy(how = How.ID , using = "SearchbarReadonly-duration")
+private WebElement duration;
+
+@FindBy(how = How.ID , using = "SearchbarReadonly-origin")
+private WebElement flyingFrom;
+
+@FindBy(how = How.ID , using = "SearchbarReadonly-goingTo")
+    private WebElement flyingTo;
+
+    @FindBy(how = How.ID , using = "SearchbarReadonly-value0")
+    private WebElement whith;
 
 
 
@@ -32,19 +41,21 @@ private Select durations;
         return filter;
     }
 
-    public String getSelectedParam(){
-        WebDriverWait wait = new WebDriverWait(driver , 30);
-        wait.until(ExpectedConditions.visibilityOf(filter));
-       List<WebElement> options = durations.getOptions();
-        for (WebElement element: options) {
-            if (element.isSelected()){
-                return element.getText();
-            }
-        }
+    public String getDuration(){
 
-        return   "nothing";
+        return  duration.getText();
 
     }
 
+    public String getFlyingFrom() {
+        return flyingFrom.getText();
+    }
 
+    public String getFlyingTo() {
+        return flyingTo.getText();
+    }
+
+    public String getWhith() {
+        return whith.getText();
+    }
 }
